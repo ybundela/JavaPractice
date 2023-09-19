@@ -6,9 +6,14 @@ public class LazyInstantiation {
     private LazyInstantiation(){};
 
     //Using synchronized to make Lazy instantiation thread safe
-    public static synchronized LazyInstantiation getInstance(){
+    public static  LazyInstantiation getInstance(){
         if(lazyInstantiation == null){
-             lazyInstantiation = new LazyInstantiation();
+            synchronized (LazyInstantiation.class){
+                if(lazyInstantiation == null){
+                    lazyInstantiation = new LazyInstantiation();
+                }
+            }
+
         }
         return lazyInstantiation;
     }
